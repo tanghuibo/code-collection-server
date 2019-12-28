@@ -1,6 +1,6 @@
 package io.github.tanghuibo.codecollectionserver.dao;
 
-import io.github.tanghuibo.codecollectionserver.bean.CodeCollectionBean;
+import io.github.tanghuibo.codecollectionserver.bean.CodeCollectionDO;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
@@ -22,13 +22,13 @@ class CodeCollectionDaoTest {
 
     @Test
     public void insertTest() {
-        CodeCollectionBean codeCollectionBean = new CodeCollectionBean();
-        codeCollectionBean.setName("test");
-        codeCollectionBean.setCode("test");
-        codeCollectionBean.setDesc("test");
-        codeCollectionDao.insertList(Arrays.asList(codeCollectionBean));
-        List<CodeCollectionBean> codeCollectionBeans = codeCollectionDao.selectAll();
-        assert codeCollectionBeans.size() > 0;
+        CodeCollectionDO codeCollectionDO = new CodeCollectionDO();
+        codeCollectionDO.setName("test");
+        codeCollectionDO.setCode("test");
+        codeCollectionDO.setDesc("test");
+        codeCollectionDao.insertList(Arrays.asList(codeCollectionDO));
+        List<CodeCollectionDO> codeCollectionDOS = codeCollectionDao.selectAll();
+        assert codeCollectionDOS.size() > 0;
     }
 
 }

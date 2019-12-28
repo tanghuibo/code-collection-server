@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<!--命名空间 确定方法所在的类-->
 <mapper namespace="io.github.tanghuibo.codecollectionserver.dao.CodeCollectionDao">
 
-    <resultMap id="result" type="io.github.tanghuibo.codecollectionserver.bean.CodeCollectionBean">
+    <resultMap id="result" type="io.github.tanghuibo.codecollectionserver.bean.CodeCollectionDO">
         <id column="id" jdbcType="BIGINT" property="id" />
         <result column="name" jdbcType="VARCHAR" property="name" />
         <result column="desc" jdbcType="VARCHAR" property="desc" />
@@ -19,17 +18,54 @@
         </foreach>
     </insert>
 
+    <insert id="insert">
+        insert into code_collection(name, desc, code) values
+        (#{name, jdbcType=VARCHAR}, #{desc, jdbcType=VARCHAR}, #{code, jdbcType=VARCHAR})
+    </insert>
+
     <update id="updateById">
         update
             code_collection
         set
-            name = #{data.name, jdbcType=VARCHAR},
-            desc = #{data.desc, jdbcType=VARCHAR},
-            code = #{data.code, jdbcType=VARCHAR}
+            name = #{name, jdbcType=VARCHAR},
+            desc = #{desc, jdbcType=VARCHAR},
+            code = #{code, jdbcType=VARCHAR}
          where id = #{id}
     </update>
 
+    <delete id="deleteAll">
+        delete from code_collection;
+    </delete>
+
+    <delete id="deleteByIds">
+        delete from code_collection where id in (
+        <foreach collection="ids" item="id" separator=",">
+        #{id}
+        </foreach>
+        )
+    </delete>
+
+    <delete id="deleteByNames">
+        delete from code_collection where name in (
+        <foreach collection="names" item="name" separator=",">
+            #{name}
+        </foreach>
+        )
+    </delete>
+
     <select id="selectAll" resultMap="result">
         select id, name, desc, code from code_collection
+    </select>
+
+    <select id="selectByName" resultMap="result">
+        select id, name, desc, code from code_collection where name = #{name} limit 1
+    </select>
+
+    <select id="selectByNames" resultMap="result">
+        select id, name, desc, code from code_collection where name in (
+        <foreach collection="names" item="name" separator=",">
+            #{name}
+        </foreach>
+        )
     </select>
 </mapper>

@@ -4,7 +4,7 @@ package io.github.tanghuibo.codecollectionserver.bean;
  * @author tanghuibo
  * @date 2019/12/26下午11:37
  */
-public class CodeCollectionBean {
+public class CodeCollectionDO {
 
     /**
      * id
